@@ -24,7 +24,7 @@ end
 
 options = {}
 OptParse.new do |opts|
-  opts.banner = "Usage: monitor [options]"
+  opts.banner = "Usage: user_add [options]"
 
   opts.on("-f PUBKEY FILE", "--file PUBKEY FILE", "Specify public key file") do |f|
     options[:pubkey] = f
