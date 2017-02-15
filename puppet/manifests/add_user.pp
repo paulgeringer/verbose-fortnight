@@ -1,33 +1,31 @@
 class linux_config::add_user(
-  $username = undef
 ) {
 
-  validate_string($username)
 
-  user { $username:
+  user { $linux_config::username:
     ensure      => present,
-    gid         => $username,
+    gid         => $linux_config::username,
     manage_home => true,
     shell       => '/bin/bash',
-    require     => Group[$username],
+    require     => Group[$linux_config::username],
   }
 
-  group { $username: 
+  group { $linux_config::username: 
     ensure => present,
   }
 
-  file { ["/home/${username}/",
-          "/home/${username}/.ssh/"
+  file { ["/home/${linux_config::username}/",
+          "/home/${linux_config::username}/.ssh/"
     ensure => directory,
-    owner  => $username,
-    group  => $username,
+    owner  => $linux_config::username,
+    group  => $linux_config::username,
   }
 
-  file { "/home/${username}/.ssh/authorized_keys":
+  file { "/home/${linux_config::username}/.ssh/authorized_keys":
     ensure  => present,
-    owner   => $username,
-    group   => $username,
-    content => 'puppet:///linux_config/pubkey',
+    owner   => $linux_config::username,
+    group   => $linux_config::username,
+    source  => 'puppet:///linux_config/pubkey',
   }
 
 }

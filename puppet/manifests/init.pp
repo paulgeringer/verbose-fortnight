@@ -1,4 +1,8 @@
-class linux_config() {
+class linux_config( 
+  $username = undef 
+) {
+
+  validate_string($username)
 
   include linux_config::add_user
 
