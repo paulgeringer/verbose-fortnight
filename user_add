@@ -14,10 +14,8 @@ def setup_ssh( pubkey_filename )
   FileUtils.mkdir_p( "/home/#{user_name}/.ssh" )
 
   pubkey = File.read(pubkey_filename).strip!
-  key_prefix = pubkey.split(' ').first
-  key_type = key_prefix.split('-')[1]
 
-  File.open( "/home/#{user_name}/.ssh/id_#{key_type}" ) do |file|
+  File.open( "/home/#{user_name}/.ssh/authorized_keys" ) do |file|
     file.write pubkey
   end
 end
